@@ -6,14 +6,16 @@ matrix:
 
   # Ubuntu, g++4.9
   - os: linux
+    compiler: gcc
     addons:
       apt:
         sources:
         - ubuntu-toolchain-r-test
-        packages: ['libboost1.55-all-dev', 'g++-4.9']
+        packages: ['libboost1.55-all-dev', 'g++-4.9', 'gcc-4.9']
     env:
-    - COMPILER=g++4.9
-    - MATRIX_EVAL="CC=gcc && CXX=g++-4.9"
+    - COMPILER=g++-4.9
+    - CC=gcc-4.9
+    - CXX=g++-4.9
     - LABEL="linux"
     - STRIP="strip"
 

@@ -133,25 +133,6 @@ set_property(TARGET service PROPERTY OUTPUT_NAME "turtle-service")
 set_property(TARGET miner PROPERTY OUTPUT_NAME "miner")
 set_property(TARGET cryptotest PROPERTY OUTPUT_NAME "cryptotest")
 
-# Enable c++17 mode
-set_property(TARGET TurtleCoind PROPERTY CXX_STANDARD 17)
-set_property(TARGET TurtleCoind PROPERTY CXX_STANDARD_REQUIRED ON)
-
-set_property(TARGET zedwallet PROPERTY CXX_STANDARD 17)
-set_property(TARGET zedwallet PROPERTY CXX_STANDARD_REQUIRED ON)
-
-set_property(TARGET zedwallet2 PROPERTY CXX_STANDARD 17)
-set_property(TARGET zedwallet2 PROPERTY CXX_STANDARD_REQUIRED ON)
-
-set_property(TARGET service PROPERTY CXX_STANDARD 17)
-set_property(TARGET service PROPERTY CXX_STANDARD_REQUIRED ON)
-
-set_property(TARGET miner PROPERTY CXX_STANDARD 17)
-set_property(TARGET miner PROPERTY CXX_STANDARD_REQUIRED ON)
-
-set_property(TARGET cryptotest PROPERTY CXX_STANDARD 17)
-set_property(TARGET cryptotest PROPERTY CXX_STANDARD_REQUIRED ON)
-
 # Additional make targets
 add_custom_target(pool DEPENDS TurtleCoind service)
 add_custom_target(solominer DEPENDS TurtleCoind zedwallet miner)

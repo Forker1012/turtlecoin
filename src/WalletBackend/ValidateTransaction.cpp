@@ -22,9 +22,9 @@ WalletError validateTransaction(
 {
     std::vector<std::string> addressesToValidate { changeAddress };
 
-    for (const auto &destination : destinations)
+    for (const auto & [destination, amount] : destinations)
     {
-        addressesToValidate.push_back(destination.first);
+        addressesToValidate.push_back(destination);
     }
 
     /* Validate the destination and change address */

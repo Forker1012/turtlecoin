@@ -158,8 +158,7 @@ std::tuple<uint64_t, uint64_t> SubWallets::getMinInitialSyncStart()
 {
     /* Get the smallest sub wallet (by timestamp) */
     auto minElementByTimestamp = *std::min_element(m_subWallets.begin(), m_subWallets.end(),
-    [](const std::pair<Crypto::PublicKey, SubWallet> &lhs,
-       const std::pair<Crypto::PublicKey, SubWallet> &rhs)
+    [](const auto &lhs, const auto &rhs)
     {
         return lhs.second.m_syncStartTimestamp < rhs.second.m_syncStartTimestamp;
     });
@@ -168,8 +167,7 @@ std::tuple<uint64_t, uint64_t> SubWallets::getMinInitialSyncStart()
 
     /* Get the smallest sub wallet (by height) */
     auto minElementByHeight = *std::min_element(m_subWallets.begin(), m_subWallets.end(),
-    [](const std::pair<Crypto::PublicKey, SubWallet> &lhs,
-       const std::pair<Crypto::PublicKey, SubWallet> &rhs)
+    [](const auto &lhs, const auto &rhs)
     {
         return lhs.second.m_syncStartHeight < rhs.second.m_syncStartHeight;
     });
@@ -203,13 +201,9 @@ void SubWallets::addTransaction(Transaction tx)
 
     /* We can regenerate the balance from the transactions, but this will be
        faster, as getting the balance is a common operation */
-    for (const auto &transfer : tx.transfers)
+    for (const auto & [pubKey, amount] : tx.transfers)
     {
-        auto pubKey = transfer.first;
-        auto amount = transfer.second;
-
         m_subWallets[pubKey].m_balance += amount;
-
         
         if (amount != 0 && tx.fee == 0)
         {
@@ -244,8 +238,8 @@ void SubWallets::generateAndStoreKeyImage(Crypto::PublicKey publicSpendKey,
 {
     const auto subWallet = m_subWallets.find(publicSpendKey);
 
-    /* Check it exists, and it isn't a view wallet */
-    if (subWallet != m_subWallets.end() && !subWallet->second.m_isViewWallet)
+    /* Check it exists */
+    if (subWallet != m_subWallets.end())
     {
         subWallet->second.generateAndStoreKeyImage(
             derivation, outputIndex, amount
@@ -256,10 +250,8 @@ void SubWallets::generateAndStoreKeyImage(Crypto::PublicKey publicSpendKey,
 std::tuple<bool, Crypto::PublicKey>
     SubWallets::getKeyImageOwner(Crypto::KeyImage keyImage)
 {
-    for (const auto &x : m_subWallets)
+    for (const auto & [publicKey, subWallet] : m_subWallets)
     {
-        const SubWallet subWallet = x.second;
-
         /* See if the sub wallet contains the key image */
         auto it = std::find_if(subWallet.m_keyImages.begin(),
                                subWallet.m_keyImages.end(),

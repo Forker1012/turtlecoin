@@ -42,12 +42,12 @@ std::string parseCommand(const std::vector<T> &printableCommands,
 
         try
         {
-            size_t selectionNum = std::stoi(selection);
+            int selectionNum = std::stoi(selection);
 
             /* Input is in 1 based indexing, we need 0 based indexing */
             selectionNum--;
 
-            size_t numCommands = availableCommands.size();
+            int numCommands = static_cast<int>(availableCommands.size());
 
             /* Must be in the bounds of the vector */
             if (selectionNum < 0 || selectionNum >= numCommands)

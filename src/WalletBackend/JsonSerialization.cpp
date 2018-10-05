@@ -350,11 +350,11 @@ std::vector<Transfer> transfersToVector(std::unordered_map<Crypto::PublicKey, in
 {
     std::vector<Transfer> vector;
 
-    for (const auto &x : transfers)
+    for (const auto & [publicKey, amount] : transfers)
     {
         Transfer t;
-        t.publicKey = x.first;
-        t.amount = x.second;
+        t.publicKey = publicKey;
+        t.amount = amount;
 
         vector.push_back(t);
     }
@@ -366,9 +366,9 @@ std::unordered_map<Crypto::PublicKey, int64_t> vectorToTransfers(std::vector<Tra
 {
     std::unordered_map<Crypto::PublicKey, int64_t> transfers;
 
-    for (const auto &t : vector)
+    for (const auto & [publicKey, amount] : vector)
     {
-        transfers[t.publicKey] = t.amount;
+        transfers[publicKey] = amount;
     }
 
     return transfers;
@@ -378,9 +378,9 @@ std::vector<SubWallet> subWalletsToVector(std::unordered_map<Crypto::PublicKey, 
 {
     std::vector<SubWallet> vector;
 
-    for (const auto &x : subWallets)
+    for (const auto & [publicKey, subWallet] : subWallets)
     {
-        vector.push_back(x.second);
+        vector.push_back(subWallet);
     }
 
     return vector;

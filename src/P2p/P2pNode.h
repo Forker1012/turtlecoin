@@ -76,7 +76,6 @@ private:
   bool m_stopRequested;
   const P2pNodeConfig m_cfg;
   const PeerIdType m_myPeerId;
-  const Crypto::Hash m_genesisHash;
   const CORE_SYNC_DATA m_genesisPayload;
 
   System::Dispatcher& m_dispatcher;

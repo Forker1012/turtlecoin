@@ -48,15 +48,15 @@ namespace
 
     uint64_t getTransactionSum(std::unordered_map<std::string, uint64_t> destinations)
     {
-        uint64_t amount = 0;
+        uint64_t amountSum = 0;
 
         /* TODO: Overflow */
-        for (const auto &destination : destinations)
+        for (const auto & [destination, amount] : destinations)
         {
-            amount += destination.second;
+            amountSum += amount;
         }
 
-        return amount;
+        return amountSum;
     }
 
 } // namespace
@@ -134,9 +134,9 @@ std::tuple<WalletError, Crypto::Hash> WalletBackend::sendTransactionAdvanced(
 
     /* Split each amount into uniform amounts, e.g.
        1234567 = 1000000 + 200000 + 30000 + 4000 + 500 + 60 + 7 */
-    for (const auto &x : destinations)
+    for (const auto & [address, amount] : destinations)
     {
-        splitAmounts[x.first] = splitAmountIntoDenominations(x.second);
+        splitAmounts[address] = splitAmountIntoDenominations(amount);
     }
 
     return {SUCCESS, Crypto::Hash()};

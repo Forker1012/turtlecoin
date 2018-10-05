@@ -1,4 +1,5 @@
-cmake_minimum_required(VERSION 2.8.6)
+# Need 3.10 for c++17 support - https://stackoverflow.com/a/46904169/8737306
+cmake_minimum_required(VERSION 3.10)
 project(TurtleCoin)
 
 # Required for finding Threads on ARM
@@ -27,6 +28,10 @@ set(ENABLE_SYNC_FILE_RANGE_WRITE OFF CACHE STRING "Enable RocksDB SYNC_FILE_RANG
 set(ENABLE_PTHREAD_MUTEX_ADAPTIVE_NP OFF CACHE STRING "Enable RocksDB PTHREAD_MUTEX_ADAPTIVE_NP support detection? Defaults to OFF")
 set(ENABLE_MALLOC_USABLE_SIZE OFF CACHE STRING "Enable RocksDB MALLOC_USABLE_SIZE support detection? Defaults to OFF")
 set(ENABLE_SCHED_GETCPU OFF CACHE STRING "Enable RocksDB SCHED_GETCPU support detection? Defaults to OFF")
+
+# Enable c++17 mode
+set_property(TARGET my_target PROPERTY CXX_STANDARD 17)
+set_property(TARGET my_target PROPERTY CXX_STANDARD_REQUIRED ON)
 
 # We need to set the label and import it into CMake if it exists
 set(LABEL "")

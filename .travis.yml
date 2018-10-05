@@ -11,9 +11,13 @@ matrix:
       apt:
         sources:
         - ubuntu-toolchain-r-test
-        packages: ['libboost1.55-all-dev', 'g++-4.9', 'gcc-4.9']
+        packages: 
+          - libboost1.55-all-dev
+          - g++-4.9
+          - gcc-4.9
     env:
-    - LABEL="linux-gcc4.9"
+    - MATRIX_EVAL="CC=gcc-4.9 && CXX=g++-4.9"
+    - LABEL="linux"
     - STRIP="strip"
 
   # OSX
@@ -52,8 +56,7 @@ install:
 - if [[ "$LABEL" == "aarch64" ]]; then cd .. ; fi
 
 script:
-- if [[ $"LABEL" == "linux-gcc4.9" ]]; then export CC=gcc-4.9 ; fi
-- if [[ $"LABEL" == "linux-gcc4.9" ]]; then export CXX=g++-4.9 ; fi
+- eval $MATRIX_EVAL
 - mkdir build && cd build
 - cmake -DCMAKE_BUILD_TYPE=Release -DSTATIC=true .. ${CUSTOM_BOOST_ROOT} && make -j2
 

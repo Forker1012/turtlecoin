@@ -540,10 +540,8 @@ WalletError WalletBackend::init()
        file */
     if (m_walletSynchronizer == nullptr)
     {
-        uint64_t startHeight;
-        uint64_t startTimestamp;
-
-        std::tie(startHeight, startTimestamp) = m_subWallets->getMinInitialSyncStart();
+        /* Some c++17 code to test... */
+        [uint64_t startHeight, uint64_t startTimestamp] = m_subWallets->getMinInitialSyncStart();
 
         m_walletSynchronizer = std::make_shared<WalletSynchronizer>(
             m_daemon, 

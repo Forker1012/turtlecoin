@@ -4,7 +4,7 @@ language: cpp
 matrix:
   include:
 
-  # Ubuntu, g++4.9
+  # Ubuntu, g++7
   - os: linux
     compiler: gcc
     addons:
@@ -13,10 +13,10 @@ matrix:
         - ubuntu-toolchain-r-test
         packages: 
           - libboost1.55-all-dev
-          - g++-4.9
-          - gcc-4.9
+          - g++-7
+          - gcc-7
     env:
-    - MATRIX_EVAL="CC=gcc-4.9 && CXX=g++-4.9"
+    - MATRIX_EVAL="CC=gcc-7 && CXX=g++-7"
     - LABEL="linux"
     - STRIP="strip"
 
@@ -24,7 +24,7 @@ matrix:
   - os: osx
     env:
     - MATRIX_EVAL="CC=gcc && CXX=g++"
-    - CXXFLAGS="-std=gnu++11"
+    - CXXFLAGS="-std=gnu++17"
     - LABEL="osx"
     - STRIP="strip"
 

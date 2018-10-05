@@ -19,6 +19,7 @@
 
 #include <time.h>
 #include <boost/foreach.hpp>
+#include <boost/iterator/reverse_iterator.hpp>
 #include <System/Ipv4Address.h>
 
 #include "Serialization/SerializationOverloads.h"

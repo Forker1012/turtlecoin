@@ -279,9 +279,9 @@ void mainLoop(std::shared_ptr<WalletInfo> walletInfo, CryptoNote::INode &node)
 }
 
 template<typename T>
-void printCommands(const std::vector<T> &commands, int offset)
+void printCommands(const std::vector<T> &commands, size_t offset)
 {
-    int i = 1 + offset;
+    size_t i = 1 + offset;
 
     std::cout << std::endl;
 
@@ -316,7 +316,7 @@ std::string parseCommand(const std::vector<AdvancedCommand> &printableCommands,
                          std::shared_ptr<WalletInfo> walletInfo);
 
 template
-void printCommands(const std::vector<Command> &commands, int offset);
+void printCommands(const std::vector<Command> &commands, size_t offset);
 
 template
-void printCommands(const std::vector<AdvancedCommand> &commands, int offset);
+void printCommands(const std::vector<AdvancedCommand> &commands, size_t offset);

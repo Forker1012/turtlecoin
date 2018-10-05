@@ -1,5 +1,11 @@
-# Need 3.10 for c++17 support - https://stackoverflow.com/a/46904169/8737306
-cmake_minimum_required(VERSION 3.10)
+# Need 3.10 for c++17 support on windows:
+# https://stackoverflow.com/a/46904169/8737306
+if (MSVC)
+    cmake_minimum_required(VERSION 3.10)
+else()
+    cmake_minimum_required(VERSION 2.8.6)
+endif()
+
 project(TurtleCoin)
 
 # Required for finding Threads on ARM

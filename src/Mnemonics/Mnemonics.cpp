@@ -88,8 +88,10 @@ namespace Mnemonics
             const size_t wlLen = WordList::English.size();
 
             /* no idea what this does lol */
-            const uint32_t val = w1 + wlLen * (((wlLen - w1) + w2) % wlLen) + wlLen 
-                                            * wlLen * (((wlLen - w2) + w3) % wlLen);
+            const uint32_t val = static_cast<uint32_t>(
+                w1 + wlLen * (((wlLen - w1) + w2) % wlLen) + wlLen 
+                           * wlLen * (((wlLen - w2) + w3) % wlLen)
+            );
 
             /* Don't know what this is testing either */
             if (!(val % wlLen == w1))

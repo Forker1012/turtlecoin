@@ -175,7 +175,7 @@ void WalletGreen::initialize(const std::string& path, const std::string& passwor
   m_logger(INFO, BRIGHT_WHITE) << "New container initialized, public view key " << viewPublicKey;
 }
 
-void WalletGreen::initializeWithViewKey(const std::string& path, const std::string& password, const Crypto::SecretKey& viewSecretKey, const uint64_t scanHeight, bool newAddress) {
+void WalletGreen::initializeWithViewKey(const std::string& path, const std::string& password, const Crypto::SecretKey& viewSecretKey, const uint64_t scanHeight, const bool newAddress) {
   Crypto::PublicKey viewPublicKey;
   if (!Crypto::secret_key_to_public_key(viewSecretKey, viewPublicKey)) {
     m_logger(ERROR, BRIGHT_RED) << "initializeWithViewKey(" << viewSecretKey << ") Failed to convert secret key to public key";

@@ -535,7 +535,6 @@ WalletError WalletBackend::init()
        file */
     if (m_walletSynchronizer == nullptr)
     {
-        /* Some c++17 code to test... */
         auto [startHeight, startTimestamp] = m_subWallets->getMinInitialSyncStart();
 
         m_walletSynchronizer = std::make_shared<WalletSynchronizer>(

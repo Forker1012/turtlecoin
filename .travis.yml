@@ -13,9 +13,7 @@ matrix:
         - ubuntu-toolchain-r-test
         packages: ['libboost1.55-all-dev', 'g++-4.9', 'gcc-4.9']
     env:
-    - GCC-COMPILER=gcc-4.9
-    - G++-COMPILER=g++-4.9
-    - LABEL="linux"
+    - LABEL="linux-gcc4.9"
     - STRIP="strip"
 
   # OSX
@@ -54,8 +52,8 @@ install:
 - if [[ "$LABEL" == "aarch64" ]]; then cd .. ; fi
 
 script:
-- export CC=$GCC-COMPILER
-- export CXX=$G++-COMPILER
+- if [[ $"LABEL" == "linux-gcc4.9" ]]; then export CC=gcc-4.9 ; fi
+- if [[ $"LABEL" == "linux-gcc4.9" ]]; then export CXX=g++-4.9 ; fi
 - mkdir build && cd build
 - cmake -DCMAKE_BUILD_TYPE=Release -DSTATIC=true .. ${CUSTOM_BOOST_ROOT} && make -j2
 

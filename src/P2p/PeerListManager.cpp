@@ -79,7 +79,7 @@ bool PeerlistManager::Peerlist::get(PeerlistEntry& entry, size_t i) const {
 
   peers_indexed::index<by_time>::type& by_time_index = m_peers.get<by_time>();
 
-  boost::iterators::reverse_iterator<boost::multi_index::detail::bidir_node_iterator<boost::multi_index::detail::ordered_index_node<boost::multi_index::detail::null_augment_policy, boost::multi_index::detail::index_node_base<CryptoNote::PeerlistEntry, std::allocator<CryptoNote::PeerlistEntry> > > > > it = by_time_index.rbegin();
+  boost::reverse_iterator<boost::multi_index::detail::bidir_node_iterator<boost::multi_index::detail::ordered_index_node<boost::multi_index::detail::null_augment_policy, boost::multi_index::detail::index_node_base<CryptoNote::PeerlistEntry, std::allocator<CryptoNote::PeerlistEntry> > > > > it = by_time_index.rbegin();
 
   std::advance(it, i);
   entry = *it;

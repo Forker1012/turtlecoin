@@ -29,10 +29,6 @@ set(ENABLE_PTHREAD_MUTEX_ADAPTIVE_NP OFF CACHE STRING "Enable RocksDB PTHREAD_MU
 set(ENABLE_MALLOC_USABLE_SIZE OFF CACHE STRING "Enable RocksDB MALLOC_USABLE_SIZE support detection? Defaults to OFF")
 set(ENABLE_SCHED_GETCPU OFF CACHE STRING "Enable RocksDB SCHED_GETCPU support detection? Defaults to OFF")
 
-# Enable c++17 mode
-set_property(TARGET my_target PROPERTY CXX_STANDARD 17)
-set_property(TARGET my_target PROPERTY CXX_STANDARD_REQUIRED ON)
-
 # We need to set the label and import it into CMake if it exists
 set(LABEL "")
 if(DEFINED ENV{LABEL})

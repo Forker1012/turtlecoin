@@ -5,6 +5,8 @@
 
 #include "P2pNode.h"
 
+#include <algorithm>
+
 #include <boost/uuid/uuid_io.hpp>
 
 #include <System/ContextGroupTimeout.h>

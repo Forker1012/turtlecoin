@@ -20,6 +20,7 @@
 #include <time.h>
 #include <boost/foreach.hpp>
 #include <boost/iterator/reverse_iterator.hpp>
+#include <boost/multi_index/ordered_index.hpp>
 #include <System/Ipv4Address.h>
 
 #include "Serialization/SerializationOverloads.h"
@@ -179,7 +180,7 @@ bool PeerlistManager::get_peerlist_full(std::list<PeerlistEntry>& pl_gray, std::
   const peers_indexed::index<by_time>::type& by_time_index_wt = m_peers_white.get<by_time>();
 
   /* Can't use auto here, g++7.0 gets confused */
-  typedef boost::iterators::reverse_iterator<
+  typedef boost::reverse_iterator<
     boost::multi_index::detail::bidir_node_iterator<
         boost::multi_index::detail::ordered_index_node<
             boost::multi_index::detail::null_augment_policy,

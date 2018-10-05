@@ -210,13 +210,8 @@ std::tuple<WalletError, WalletBackend> WalletBackend::importWalletFromSeed(
         return {error, WalletBackend()};
     }
 
-    std::string mnemonicError;
-
-    Crypto::SecretKey privateSpendKey;
-
     /* Convert the mnemonic into a private spend key */
-    std::tie(mnemonicError, privateSpendKey)
-        = Mnemonics::MnemonicToPrivateKey(mnemonicSeed);
+    auto [mnemonicError, privateSpendKey] = Mnemonics::MnemonicToPrivateKey(mnemonicSeed);
 
     /* TODO: Return a more informative error */
     if (!mnemonicError.empty())

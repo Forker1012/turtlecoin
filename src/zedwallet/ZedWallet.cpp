@@ -140,11 +140,7 @@ void run(CryptoNote::WalletGreen &wallet, CryptoNote::INode &node,
 {
     std::cout << InformationMsg(getVersion()) << std::endl;
 
-    std::shared_ptr<WalletInfo> walletInfo;
-
-    bool quit;
-
-    std::tie(quit, walletInfo) = selectionScreen(config, wallet, node);
+    auto [quit, walletInfo] = selectionScreen(config, wallet, node);
 
     bool alreadyShuttingDown = false;
 

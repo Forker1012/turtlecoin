@@ -48,7 +48,7 @@ namespace Mnemonics
             str << "Mnemonic seed is wrong length - It should be 25 words "
                 << "long, but it is " << len << " " << wordPlural << " long!";
 
-            return std::make_tuple(str.str(), key);
+            return {str.str(), key};
         }
 
         /* All words must be present in the word list */
@@ -63,15 +63,14 @@ namespace Mnemonics
                 str << "Mnemonic seed has invalid word - "
                     << word << " is not in the English word list!";
 
-                return std::make_tuple(str.str(), key);
+                return {str.str(), key};
             }
         }
 
         /* The checksum must be correct */
         if (!HasValidChecksum(words))
         {
-            return std::make_tuple("Mnemonic seed has incorrect checksum!",
-                                   key);
+            return {"Mnemonic seed has incorrect checksum!", key};
         }
 
         auto wordIndexes = GetWordIndexes(words);
@@ -95,7 +94,7 @@ namespace Mnemonics
             /* Don't know what this is testing either */
             if (!(val % wlLen == w1))
             {
-                return std::make_tuple("Mnemonic seed is invalid!", key);
+                return {"Mnemonic seed is invalid!", key};
             }
 
             /* Interpret val as 4 uint8_t's */
@@ -111,7 +110,7 @@ namespace Mnemonics
         /* Copy the data to the secret key */
         std::copy(data.begin(), data.end(), key.data);
 
-        return std::make_tuple(std::string(), key);
+        return {std::string(), key};
     }
 
     std::string PrivateKeyToMnemonic(const Crypto::SecretKey privateKey)

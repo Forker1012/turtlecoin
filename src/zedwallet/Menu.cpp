@@ -108,7 +108,7 @@ std::tuple<bool, std::shared_ptr<WalletInfo>>
         /* User wants to exit */
         if (launchCommand == "exit")
         {
-            return std::make_tuple(true, nullptr);
+            return {true, nullptr};
         }
 
         /* Handle the user input */
@@ -128,7 +128,7 @@ std::tuple<bool, std::shared_ptr<WalletInfo>>
         /* Node is down, user wants to exit */
         if (!checkNodeStatus(node))
         {
-            return std::make_tuple(true, nullptr);
+            return {true, nullptr};
         }
     
         /* If we're creating a wallet, don't print the lengthy sync process */
@@ -166,7 +166,7 @@ std::tuple<bool, std::shared_ptr<WalletInfo>>
         }
 
         /* Return the wallet info */
-        return std::make_tuple(false, walletInfo);
+        return {false, walletInfo};
     }
 }
 

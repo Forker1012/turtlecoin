@@ -147,17 +147,13 @@ uint64_t WalletSynchronizer::processTransactionInputs(
     for (const auto keyInput : keyInputs)
     {
         sumOfInputs += keyInput.amount;
-
-        Crypto::PublicKey publicSpendKey;
-
-        bool found;
-
+        
         /* See if any of the sub wallets contain this key image. If they do,
            it means this keyInput is an outgoing transfer from that wallet.
            
            We grab the spendKey so we can index the transfers array and then
            notify the subwallets all at once */
-        std::tie(found, publicSpendKey) = m_subWallets->getKeyImageOwner(
+        auto [found, publicSpendKey] = m_subWallets->getKeyImageOwner(
             keyInput.keyImage
         );
 
@@ -285,13 +281,9 @@ void WalletSynchronizer::processTransaction(WalletTypes::RawTransaction rawTX,
        transfers map */
     uint64_t sumOfInputs = processTransactionInputs(rawTX.keyInputs, transfers);
 
-    uint64_t sumOfOutputs;
-
-    bool success;
-
     /* Finds the sum of outputs, adds the amounts that belong to us to the
        transfers map, and stores any key images that belong to us */
-    std::tie(success, sumOfOutputs) = processTransactionOutputs(
+    auto [success, sumOfOutputs] = processTransactionOutputs(
         rawTX.keyOutputs, rawTX.transactionPublicKey, transfers
     );
 

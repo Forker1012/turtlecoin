@@ -7,6 +7,8 @@
 
 #include <boost/uuid/uuid_io.hpp>
 
+#include <random>
+
 #include <System/ContextGroupTimeout.h>
 #include <System/InterruptedException.h>
 #include <System/Ipv4Address.h>

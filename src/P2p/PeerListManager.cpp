@@ -78,7 +78,8 @@ bool PeerlistManager::Peerlist::get(PeerlistEntry& entry, size_t i) const {
 
   peers_indexed::index<by_time>::type& by_time_index = m_peers.get<by_time>();
 
-  auto it = by_time_index.rbegin();
+  boost::iterators::reverse_iterator<boost::multi_index::detail::bidir_node_iterator<boost::multi_index::detail::ordered_index_node<boost::multi_index::detail::null_augment_policy, boost::multi_index::detail::index_node_base<CryptoNote::PeerlistEntry, std::allocator<CryptoNote::PeerlistEntry> > > > > it = by_time_index.rbegin();
+
   std::advance(it, i);
   entry = *it;
 
@@ -176,8 +177,33 @@ bool PeerlistManager::get_peerlist_full(std::list<PeerlistEntry>& pl_gray, std::
   const peers_indexed::index<by_time>::type& by_time_index_gr = m_peers_gray.get<by_time>();
   const peers_indexed::index<by_time>::type& by_time_index_wt = m_peers_white.get<by_time>();
 
-  std::copy(by_time_index_gr.rbegin(), by_time_index_gr.rend(), std::back_inserter(pl_gray));
-  std::copy(by_time_index_wt.rbegin(), by_time_index_wt.rend(), std::back_inserter(pl_white));
+  /* Can't use auto here, g++7.0 gets confused */
+  typedef boost::iterators::reverse_iterator<
+    boost::multi_index::detail::bidir_node_iterator<
+        boost::multi_index::detail::ordered_index_node<
+            boost::multi_index::detail::null_augment_policy,
+            boost::multi_index::detail::index_node_base<
+                CryptoNote::PeerlistEntry,
+                std::allocator<CryptoNote::PeerlistEntry>
+            >
+        >
+    >
+  > boost_reverse_iterator_cancer;
+
+  /* I'm dying */
+  boost_reverse_iterator_cancer grayByTimeBegin = by_time_index_gr.rbegin();
+
+  /* Is it blissful */
+  boost_reverse_iterator_cancer whiteByTimeBegin = by_time_index_wt.rbegin();
+
+  /* It's like a dream */
+  boost_reverse_iterator_cancer grayByTimeEnd = by_time_index_gr.rend();
+
+  /* I want to dream */
+  boost_reverse_iterator_cancer whiteByTimeEnd = by_time_index_wt.rend();
+
+  std::copy(grayByTimeBegin, grayByTimeEnd, std::back_inserter(pl_gray));
+  std::copy(whiteByTimeBegin, whiteByTimeEnd, std::back_inserter(pl_white));
 
   return true;
 }
